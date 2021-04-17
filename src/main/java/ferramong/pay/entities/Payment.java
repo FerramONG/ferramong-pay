@@ -1,11 +1,11 @@
 package ferramong.pay.entities;
 
+import ferramong.pay.models.PaymentMethod;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Currency;
 import java.util.Date;
 
 @Entity
@@ -24,8 +24,15 @@ public class Payment implements Serializable {
     private Date date;
 
     @Column(nullable = false)
-    private Currency amount;
+    private double total;
 
     @Column(nullable = false)
-    private String type; // credit, debit, money, creditools
+    private String type;    // credit, debit, money, creditools
+
+    public Payment(int idDweller, PaymentMethod type, double value) {
+        id_dweller = idDweller;
+        date = new Date();
+        total = value;
+        this.type = type.name();
+    }
 }

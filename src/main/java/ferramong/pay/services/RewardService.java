@@ -15,8 +15,17 @@ public class RewardService {
     private final RewardRepository repository;
 
     public boolean rewardDweller(Reward reward) {
+        Creditools wallet = Creditools.of(idDweller);
+
+        wallet.credit(value);
+
+        doReward(reward);
+    }
+
+    private boolean doReward(Reward reward) {
         try {
             repository.save(reward);
+
             return true;
         }
         catch (Exception e) {

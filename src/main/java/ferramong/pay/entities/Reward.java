@@ -1,6 +1,7 @@
 package ferramong.pay.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter
 public class Reward implements Serializable {
@@ -24,4 +26,6 @@ public class Reward implements Serializable {
 
     @Column(nullable = false)
     private double value; // creditools
+
+    public Reward(long id_dweller, )
 }
