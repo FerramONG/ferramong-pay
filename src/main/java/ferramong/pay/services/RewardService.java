@@ -1,6 +1,7 @@
 package ferramong.pay.services;
 
 import ferramong.pay.entities.Reward;
+import ferramong.pay.models.Creditools;
 import ferramong.pay.repositories.RewardRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,12 @@ public class RewardService {
     private final RewardRepository repository;
 
     public boolean rewardDweller(Reward reward) {
-        /*
-        Creditools wallet = Creditools.of(idDweller);
 
-        wallet.credit(value);
-*/
+        Creditools wallet = Creditools.of(reward.getId_dweller());
+
+        if (!wallet.creditUsingCreditools(reward.getValue()))
+            return false;
+
         return doReward(reward);
     }
 

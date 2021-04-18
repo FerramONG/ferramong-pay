@@ -1,5 +1,6 @@
-package ferramong.pay.models;
+package ferramong.pay.models.payment;
 
+import ferramong.pay.models.card.DebitCard;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreditoolsPayment implements Serializable {
+public class MoneyPayment implements Serializable {
 
     private int id_dweller;
     private double value;

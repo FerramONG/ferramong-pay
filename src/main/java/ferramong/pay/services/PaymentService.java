@@ -1,10 +1,9 @@
 package ferramong.pay.services;
 
 import ferramong.pay.entities.Payment;
-import ferramong.pay.models.PaymentMethod;
+import ferramong.pay.models.Creditools;
+import ferramong.pay.models.payment.PaymentMethod;
 import ferramong.pay.models.card.Card;
-import ferramong.pay.models.card.CreditCard;
-import ferramong.pay.models.card.DebitCard;
 import ferramong.pay.repositories.PaymentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,13 +50,14 @@ public class PaymentService {
     }
 
     public boolean payWithCreditools(int idDweller, double value) {
-        /*Creditools wallet = Creditools.of(idDweller);
+        Creditools wallet = Creditools.of(idDweller);
 
         if (wallet.getBalance() < value)
             return false;
 
-        wallet.debit(value);
-*/
+        if (!wallet.debit(value))
+            return false;
+
         return doPayment(idDweller, PaymentMethod.CREDITOOLS, value);
     }
 

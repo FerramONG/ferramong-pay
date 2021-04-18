@@ -1,7 +1,10 @@
 package ferramong.pay.controllers;
 
 import ferramong.pay.entities.Payment;
-import ferramong.pay.models.*;
+import ferramong.pay.models.payment.CreditCardPayment;
+import ferramong.pay.models.payment.CreditoolsPayment;
+import ferramong.pay.models.payment.DebitCardPayment;
+import ferramong.pay.models.payment.MoneyPayment;
 import ferramong.pay.services.PaymentService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -1,14 +1,8 @@
-package ferramong.pay.models;
+package ferramong.pay.models.payment;
 
 import ferramong.pay.models.card.Card;
-import ferramong.pay.models.card.CreditCard;
 import ferramong.pay.models.card.DebitCard;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serializable;
 
 @NoArgsConstructor
 public class DebitCardPayment extends CardPayment {

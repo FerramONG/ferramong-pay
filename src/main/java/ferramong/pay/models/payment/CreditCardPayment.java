@@ -1,4 +1,4 @@
-package ferramong.pay.models;
+package ferramong.pay.models.payment;
 
 import ferramong.pay.models.card.Card;
 import ferramong.pay.models.card.CreditCard;

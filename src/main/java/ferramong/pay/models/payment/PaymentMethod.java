@@ -1,4 +1,4 @@
-package ferramong.pay.models;
+package ferramong.pay.models.payment;
 
 public enum PaymentMethod {
 

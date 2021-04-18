@@ -1,6 +1,6 @@
 package ferramong.pay.entities;
 
-import ferramong.pay.models.PaymentMethod;
+import ferramong.pay.models.payment.PaymentMethod;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
