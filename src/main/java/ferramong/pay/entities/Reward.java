@@ -26,6 +26,4 @@ public class Reward implements Serializable {
 
     @Column(nullable = false)
     private double value; // creditools
-
-    public Reward(long id_dweller, )
 }

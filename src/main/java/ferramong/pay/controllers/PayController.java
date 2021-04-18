@@ -2,6 +2,10 @@ package ferramong.pay.controllers;
 
 import ferramong.pay.entities.Payment;
 import ferramong.pay.entities.Reward;
+import ferramong.pay.models.CreditCardPayment;
+import ferramong.pay.models.CreditoolsPayment;
+import ferramong.pay.models.DebitCardPayment;
+import ferramong.pay.models.MoneyPayment;
 import ferramong.pay.services.PaymentService;
 import ferramong.pay.services.RewardService;
 import lombok.AllArgsConstructor;
@@ -13,6 +17,7 @@ import org.springframework.web.cors.CorsConfiguration;
 
 import javax.ws.rs.core.Response;
 import java.util.Date;
+import java.util.List;
 
 /*
 * Controller
@@ -32,13 +37,22 @@ public class PayController {
     private final PaymentService paymentService;
     private final RewardService rewardService;
 
-    @PostMapping(
-            path = "/pay/credit",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Response payOngWithCredit(@RequestBody Payment payment) {
-        return schedulerService.listAllWithName(name);
+    @PostMapping("/pay/credit")
+    public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
+        boolean response = paymentService.payWithCreditCard(
+                payment.getId_dweller(),
+                payment.getCard(),
+                payment.getValue()
+        );
+
+        return parseResponse(response);
+    }
+
+    private Response parseResponse(boolean response) {
+        if (!response)
+            return Response.notModified().build();
+
+        return Response.accepted().build();
     }
 
     @PostMapping(
@@ -46,8 +60,14 @@ public class PayController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Response payOngWithDebit(@RequestBody Payment payment) {
-        return schedulerService.listAllWithName(name);
+    public Response payOngWithDebit(@RequestBody DebitCardPayment payment) {
+        boolean response = paymentService.payWithDebitCard(
+                payment.getId_dweller(),
+                payment.getCard(),
+                payment.getValue()
+        );
+
+        return parseResponse(response);
     }
 
     @PostMapping(
@@ -55,8 +75,13 @@ public class PayController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Response payOngWithMoney(@RequestBody Payment payment) {
-        return schedulerService.listAllWithName(name);
+    public Response payOngWithMoney(@RequestBody MoneyPayment payment) {
+        boolean response = paymentService.payWithMoney(
+                payment.getId_dweller(),
+                payment.getValue()
+        );
+
+        return parseResponse(response);
     }
 
     @PostMapping(
@@ -64,8 +89,13 @@ public class PayController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Response payOngWithCreditools(@RequestBody Payment payment) {
-        return schedulerService.listAllWithName(name);
+    public Response payOngWithCreditools(@RequestBody CreditoolsPayment payment) {
+        boolean response = paymentService.payWithCreditools(
+                payment.getId_dweller(),
+                payment.getValue()
+        );
+
+        return parseResponse(response);
     }
 
     /*
@@ -77,21 +107,22 @@ public class PayController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Response pay(@RequestBody Reward reward) {
-        //return schedulerService.listAllWithName(name);
-        return Response.noContent().build();
+    public Response reward(@RequestBody Reward reward) {
+        boolean response = rewardService.rewardDweller(reward);
+
+        return parseResponse(response);
     }
 
     @GetMapping("/purchases/ong/{start}/{end}")
-    public ResponseEntity<Purchase> getAllOngPurchases(@PathVariable("start")
-                                                       @DateTimeFormat(pattern="yyyy-MM-dd") Date start,
-                                                       @PathVariable("end")
-                                                       @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
-        return Response.noContent().build();
+    public ResponseEntity<List<Payment>> getAllOngPurchases(@PathVariable("start")
+                                                            @DateTimeFormat(pattern="yyyy-MM-dd") Date start,
+                                                            @PathVariable("end")
+                                                            @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
+        return ResponseEntity.ok().body(paymentService.getAllOngPurchases(start, end));
     }
 
     @GetMapping("/purchases/dweller/{id_dweller}")
-    public ResponseEntity<Purchase> getAllDwellerPurchases(@PathVariable("id_dweller") long id_dweller) {
-        return Response.noContent().build();
+    public ResponseEntity<List<Payment>> getAllDwellerPurchases(@PathVariable("id_dweller") long idDweller) {
+        return ResponseEntity.ok().body(paymentService.getAllDwellerPurchases(idDweller));
     }
 }

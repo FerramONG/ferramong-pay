@@ -1,6 +1,13 @@
 package ferramong.pay.models.card;
 
-public abstract class Card {
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+
+@Getter
+@Setter
+public abstract class Card implements Serializable {
 
     protected long number;
     protected int cvv;
