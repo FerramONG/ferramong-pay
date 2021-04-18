@@ -17,7 +17,7 @@ public class Payment implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    private long id;
+    private int id;
 
     @Column(nullable = false)
     private int id_dweller;

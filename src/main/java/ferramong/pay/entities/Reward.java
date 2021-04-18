@@ -16,10 +16,10 @@ public class Reward implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    private long id;
+    private int id;
 
     @Column(nullable = false)
-    private long id_dweller;
+    private int id_dweller;
 
     @Column(nullable = false)
     private Date date;
