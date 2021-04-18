@@ -6,7 +6,6 @@ import org.springframework.web.client.RestTemplate;
 public class Creditools {
 
     private int idDweller;
-    private double balance;
 
     private Creditools(int idDweller) {
         this.idDweller = idDweller;
@@ -83,6 +82,20 @@ public class Creditools {
     }
 
     public double getBalance() {
-        return balance;
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        String body = "";
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = rest.exchange(
+                "https://ferramong-creditools.herokuapp.com/wallet/dweller/" + String.valueOf(idDweller),
+                HttpMethod.GET,
+                requestEntity,
+                String.class
+        );
+        HttpStatus httpStatus = responseEntity.getStatusCode();
+        int status = httpStatus.value();
+
+        return Double.parseDouble(responseEntity.getBody());
     }
 }
