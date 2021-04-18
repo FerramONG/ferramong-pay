@@ -24,9 +24,9 @@ CREATE TABLE Reward (
          value DOUBLE NOT NULL
 );
 
-INSERT INTO Reward (id_dweller, date, value) VALUES
-(1, NOW(), 10),
-(1, NOW(), 7),
-(2, NOW(), 74),
-(3, NOW(), 100),
-(4, NOW(), 100);
+// INSERT INTO Reward (id_dweller, date, value) VALUES
+// (1, NOW(), 10),
+// (1, NOW(), 7),
+// (2, NOW(), 74),
+// (3, NOW(), 100),
+// (4, NOW(), 100);

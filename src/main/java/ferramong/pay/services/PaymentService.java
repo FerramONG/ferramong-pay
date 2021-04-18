@@ -18,7 +18,7 @@ public class PaymentService {
 
     private final PaymentRepository repository;
 
-    public boolean payWithCreditCard(int idDweller, CreditCard card, double value) {
+    public boolean payWithCreditCard(int idDweller, Card card, double value) {
         return payWithCard(idDweller, PaymentMethod.CREDIT_CARD, card, value);
     }
 
@@ -42,7 +42,7 @@ public class PaymentService {
         }
     }
 
-    public boolean payWithDebitCard(int idDweller, DebitCard card, double value) {
+    public boolean payWithDebitCard(int idDweller, Card card, double value) {
         return payWithCard(idDweller, PaymentMethod.DEBIT_CARD, card, value);
     }
 
@@ -61,7 +61,7 @@ public class PaymentService {
         return doPayment(idDweller, PaymentMethod.CREDITOOLS, value);
     }
 
-    public List<Payment> getAllDwellerPurchases(long idDweller) {
+    public List<Payment> getAllDwellerPurchases(int idDweller) {
         return repository.getAllDwellerPurchases(idDweller);
     }
 

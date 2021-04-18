@@ -1,5 +1,6 @@
 package ferramong.pay.models;
 
+import ferramong.pay.models.card.Card;
 import ferramong.pay.models.card.CreditCard;
 import ferramong.pay.models.card.DebitCard;
 import lombok.AllArgsConstructor;
@@ -9,13 +10,11 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class DebitCardPayment implements Serializable {
+public class DebitCardPayment extends CardPayment {
 
-    private int id_dweller;
-    private DebitCard card;
-    private double value;
+    @Override
+    public Card getCard() {
+        return new DebitCard(cardNumber, cardCvv, cardOwner);
+    }
 }

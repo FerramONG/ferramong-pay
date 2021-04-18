@@ -1,20 +1,12 @@
 package ferramong.pay.models;
 
+import ferramong.pay.models.card.Card;
 import ferramong.pay.models.card.CreditCard;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.io.Serializable;
+public class CreditCardPayment extends CardPayment {
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class CreditCardPayment implements Serializable {
-
-    private int id_dweller;
-    private CreditCard card;
-    private double value;
+    @Override
+    public Card getCard() {
+        return new CreditCard(cardNumber, cardCvv, cardOwner);
+    }
 }

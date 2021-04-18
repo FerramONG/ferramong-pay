@@ -1,8 +1,11 @@
 package ferramong.pay.models.card;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class DebitCard extends Card {
 
-    public DebitCard(long number, int cvv, String owner) {
+    public DebitCard(String number, int cvv, String owner) {
         super(number, cvv, owner);
     }
 

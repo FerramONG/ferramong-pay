@@ -1,13 +1,8 @@
 package ferramong.pay.controllers;
 
 import ferramong.pay.entities.Payment;
-import ferramong.pay.entities.Reward;
-import ferramong.pay.models.CreditCardPayment;
-import ferramong.pay.models.CreditoolsPayment;
-import ferramong.pay.models.DebitCardPayment;
-import ferramong.pay.models.MoneyPayment;
+import ferramong.pay.models.*;
 import ferramong.pay.services.PaymentService;
-import ferramong.pay.services.RewardService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -32,7 +27,7 @@ public class PayController {
     @PostMapping("/pay/credit")
     public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
         boolean response = paymentService.payWithCreditCard(
-                payment.getId_dweller(),
+                payment.getIdDweller(),
                 payment.getCard(),
                 payment.getValue()
         );
@@ -54,7 +49,7 @@ public class PayController {
     )
     public Response payOngWithDebit(@RequestBody DebitCardPayment payment) {
         boolean response = paymentService.payWithDebitCard(
-                payment.getId_dweller(),
+                payment.getIdDweller(),
                 payment.getCard(),
                 payment.getValue()
         );

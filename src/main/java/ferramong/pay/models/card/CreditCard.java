@@ -1,8 +1,11 @@
 package ferramong.pay.models.card;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class CreditCard extends Card {
 
-    public CreditCard(long number, int cvv, String owner) {
+    public CreditCard(String number, int cvv, String owner) {
         super(number, cvv, owner);
     }
 

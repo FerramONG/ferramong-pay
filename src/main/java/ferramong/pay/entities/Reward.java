@@ -16,7 +16,7 @@ public class Reward implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    private int id;
+    private long id;
 
     @Column(nullable = false)
     private int id_dweller;

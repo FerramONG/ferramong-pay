@@ -16,7 +16,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
             "WHERE p.id_dweller = :id_dweller"
     )
     public List<Payment> getAllDwellerPurchases(
-            @Param("id_dweller") long id_dweller
+            @Param("id_dweller") int id_dweller
     );
 
     @Query(
