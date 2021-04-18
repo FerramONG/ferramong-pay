@@ -19,13 +19,6 @@ import javax.ws.rs.core.Response;
 import java.util.Date;
 import java.util.List;
 
-/*
-* Controller
-*   Deve ter minimo de logica
-*	Serve para chamar serviços
-*	Mapeia endpoints
-* */
-
 @RestController
 @AllArgsConstructor
 @CrossOrigin(
@@ -35,7 +28,6 @@ import java.util.List;
 public class PayController {
 
     private final PaymentService paymentService;
-    private final RewardService rewardService;
 
     @PostMapping("/pay/credit")
     public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
@@ -98,21 +90,6 @@ public class PayController {
         return parseResponse(response);
     }
 
-    /*
-     * id_dweller: <id>
-     * value: <creditools>
-     * */
-    @PostMapping(
-            path = "/reward",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Response reward(@RequestBody Reward reward) {
-        boolean response = rewardService.rewardDweller(reward);
-
-        return parseResponse(response);
-    }
-
     @GetMapping("/purchases/ong/{start}/{end}")
     public ResponseEntity<List<Payment>> getAllOngPurchases(@PathVariable("start")
                                                             @DateTimeFormat(pattern="yyyy-MM-dd") Date start,
@@ -122,7 +99,7 @@ public class PayController {
     }
 
     @GetMapping("/purchases/dweller/{id_dweller}")
-    public ResponseEntity<List<Payment>> getAllDwellerPurchases(@PathVariable("id_dweller") long idDweller) {
+    public ResponseEntity<List<Payment>> getAllDwellerPurchases(@PathVariable("id_dweller") int idDweller) {
         return ResponseEntity.ok().body(paymentService.getAllDwellerPurchases(idDweller));
     }
 }

@@ -15,11 +15,12 @@ public class RewardService {
     private final RewardRepository repository;
 
     public boolean rewardDweller(Reward reward) {
+        /*
         Creditools wallet = Creditools.of(idDweller);
 
         wallet.credit(value);
-
-        doReward(reward);
+*/
+        return doReward(reward);
     }
 
     private boolean doReward(Reward reward) {
@@ -35,5 +36,9 @@ public class RewardService {
 
     public List<Reward> getAllRewardsBetween(Date start, Date end) {
         return repository.getAllRewardsBetween(start, end);
+    }
+
+    public List<Reward> getDwellerRewards(int idDweller) {
+        return repository.getDwellerRewards(idDweller);
     }
 }

@@ -19,4 +19,12 @@ public interface RewardRepository extends JpaRepository<Reward, Integer> {
             @Param("start") Date start,
             @Param("end") Date end
     );
+
+    @Query(
+            "SELECT r FROM Reward r " +
+            "WHERE r.id_dweller = :id_dweller"
+    )
+    public List<Reward> getDwellerRewards(
+            @Param("id_dweller") int idDweller
+    );
 }

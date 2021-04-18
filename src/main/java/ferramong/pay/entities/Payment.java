@@ -2,6 +2,7 @@ package ferramong.pay.entities;
 
 import ferramong.pay.models.PaymentMethod;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter
 public class Payment implements Serializable {

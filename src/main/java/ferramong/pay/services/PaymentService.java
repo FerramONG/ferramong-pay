@@ -51,13 +51,13 @@ public class PaymentService {
     }
 
     public boolean payWithCreditools(int idDweller, double value) {
-        Creditools wallet = Creditools.of(idDweller);
+        /*Creditools wallet = Creditools.of(idDweller);
 
         if (wallet.getBalance() < value)
             return false;
 
         wallet.debit(value);
-
+*/
         return doPayment(idDweller, PaymentMethod.CREDITOOLS, value);
     }
 
