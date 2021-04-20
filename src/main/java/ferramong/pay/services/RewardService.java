@@ -1,7 +1,7 @@
 package ferramong.pay.services;
 
 import ferramong.pay.entities.Reward;
-import ferramong.pay.models.Creditools;
+import ferramong.pay.entities.Creditools;
 import ferramong.pay.repositories.RewardRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -23,6 +23,22 @@ public class RewardController {
 
     private final RewardService rewardService;
 
+    /**
+     * Rewards a dweller.
+     *
+     * <h2>CURL example</h2>
+     * <code>
+     *     curl "https://ferramong-pay.herokuapp.com/reward" \
+     *     -X POST \
+     *     -d "{\n  \"id_dweller\": \"1\",\n \"value\": \"123.34\"\n}" \
+     *     -H "Content-type: application/json"
+     * </code>
+     *
+     * @param       reward Dweller id and value to be rewarded
+     *
+     * @return      200 if ok; 404 if there is no dweller with the provided id;
+     * 400 if another error occurs
+     */
     @PostMapping(
             path = "/reward",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -46,7 +62,20 @@ public class RewardController {
         return ResponseEntity.ok().body(rewardService.getDwellerRewards(idDweller));
     }
 
-    @GetMapping("/reward/start/end")
+    /**
+     * Gets rewards within a date range.
+     *
+     * <h2>CURL example</h2>
+     * <code>
+     *      curl "https://ferramong-pay.herokuapp.com/reward/2021-03-27/2021-03-28"
+     * </code>
+     *
+     * @param       start Start range
+     * @param       end End range
+     *
+     * @return      Rewards in the interval [start; end]
+     */
+    @GetMapping("/reward/{start}/{end}")
     public ResponseEntity<List<Reward>> getRewards(@PathVariable("start")
                                                    @DateTimeFormat(pattern="yyyy-MM-dd") Date start,
                                                    @PathVariable("end")

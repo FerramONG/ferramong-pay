@@ -1,4 +1,4 @@
-package ferramong.pay.models;
+package ferramong.pay.entities;
 
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;

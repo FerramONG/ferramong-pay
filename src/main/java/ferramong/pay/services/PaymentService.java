@@ -1,7 +1,7 @@
 package ferramong.pay.services;
 
 import ferramong.pay.entities.Payment;
-import ferramong.pay.models.Creditools;
+import ferramong.pay.entities.Creditools;
 import ferramong.pay.models.payment.PaymentMethod;
 import ferramong.pay.models.card.Card;
 import ferramong.pay.repositories.PaymentRepository;
