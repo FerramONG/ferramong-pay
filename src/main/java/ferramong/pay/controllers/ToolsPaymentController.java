@@ -117,7 +117,7 @@ public class ToolsPaymentController {
     )
     public Response payOngWithMoney(@RequestBody MoneyPayment payment) {
         boolean response = toolsPaymentService.payWithMoney(
-                payment.getId_dweller(),
+                payment.getIdDweller(),
                 payment.getValue()
         );
 
