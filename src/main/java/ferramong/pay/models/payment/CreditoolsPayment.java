@@ -13,6 +13,6 @@ import java.io.Serializable;
 @Setter
 public class CreditoolsPayment implements Serializable {
 
-    private int id_dweller;
+    private int idDweller;
     private double value;
 }

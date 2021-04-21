@@ -34,7 +34,7 @@ public class ToolsPaymentController {
      * <code>
      *     curl "https://ferramong-pay.herokuapp.com/pay/credit" \
      *     -X POST \
-     *     -d "{\n  \"id_dweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
+     *     -d "{\n  \"idDweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
      * </code>
      *
@@ -46,6 +46,9 @@ public class ToolsPaymentController {
      */
     @PostMapping("/pay/credit")
     public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
+        if (payment.getIdDweller() <= 0)
+            return Response.status(404).build();
+
         boolean response = toolsPaymentService.payWithCreditCard(
                 payment.getIdDweller(),
                 payment.getCard(),
@@ -69,7 +72,7 @@ public class ToolsPaymentController {
      * <code>
      *     curl "https://ferramong-pay.herokuapp.com/pay/debit" \
      *     -X POST \
-     *     -d "{\n  \"id_dweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
+     *     -d "{\n  \"idDweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
      * </code>
      *
@@ -85,6 +88,9 @@ public class ToolsPaymentController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Response payOngWithDebit(@RequestBody DebitCardPayment payment) {
+        if (payment.getIdDweller() <= 0)
+            return Response.status(404).build();
+
         boolean response = toolsPaymentService.payWithDebitCard(
                 payment.getIdDweller(),
                 payment.getCard(),
@@ -101,7 +107,7 @@ public class ToolsPaymentController {
      * <code>
      *     curl "https://ferramong-pay.herokuapp.com/pay/money" \
      *     -X POST \
-     *     -d "{\n  \"id_dweller\": \"1\",\n \"value\": \"123.34\"\n}" \
+     *     -d "{\n  \"idDweller\": \"1\",\n \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
      * </code>
      *
@@ -116,6 +122,9 @@ public class ToolsPaymentController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Response payOngWithMoney(@RequestBody MoneyPayment payment) {
+        if (payment.getIdDweller() <= 0)
+            return Response.status(404).build();
+
         boolean response = toolsPaymentService.payWithMoney(
                 payment.getIdDweller(),
                 payment.getValue()
@@ -131,7 +140,7 @@ public class ToolsPaymentController {
      * <code>
      *     curl "https://ferramong-pay.herokuapp.com/pay/creditools" \
      *     -X POST \
-     *     -d "{\n  \"id_dweller\": \"1\",\n \"value\": \"123.34\"\n}" \
+     *     -d "{\n  \"idDweller\": \"1\",\n \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
      * </code>
      *
@@ -146,8 +155,11 @@ public class ToolsPaymentController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Response payOngWithCreditools(@RequestBody CreditoolsPayment payment) {
+        if (payment.getIdDweller() <= 0)
+            return Response.status(404).build();
+
         boolean response = toolsPaymentService.payWithCreditools(
-                payment.getId_dweller(),
+                payment.getIdDweller(),
                 payment.getValue()
         );
 

@@ -33,7 +33,7 @@ public class CreditoolsPaymentController {
      * <code>
      *     curl "https://ferramong-pay.herokuapp.com/buy/creditools/credit" \
      *     -X POST \
-     *     -d "{\n  \"id_dweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
+     *     -d "{\n  \"idDweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
      * </code>
      *
@@ -71,7 +71,7 @@ public class CreditoolsPaymentController {
      * <code>
      *     curl "https://ferramong-pay.herokuapp.com/buy/creditools/debit" \
      *     -X POST \
-     *     -d "{\n  \"id_dweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
+     *     -d "{\n  \"idDweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
      * </code>
      *
@@ -106,7 +106,7 @@ public class CreditoolsPaymentController {
      * <code>
      *     curl "https://ferramong-pay.herokuapp.com/buy/creditools/money" \
      *     -X POST \
-     *     -d "{\n  \"id_dweller\": \"1\",\n \"value\": \"123.34\"\n}" \
+     *     -d "{\n  \"idDweller\": \"1\",\n \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
      * </code>
      *
