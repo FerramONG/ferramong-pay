@@ -14,6 +14,6 @@ import java.io.Serializable;
 @Setter
 public class MoneyPayment implements Serializable {
 
-    private int id_dweller;
+    private int idDweller;
     private double value;
 }

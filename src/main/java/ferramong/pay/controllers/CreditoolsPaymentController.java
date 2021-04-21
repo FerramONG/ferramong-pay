@@ -45,6 +45,9 @@ public class CreditoolsPaymentController {
      */
     @PostMapping("/buy/creditools/credit")
     public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
+        if (payment.getIdDweller() <= 0)
+            return Response.status(404).build();
+
         boolean response = creditoolsPaymentService.buyWithCreditCard(
                 payment.getIdDweller(),
                 payment.getCard(),
@@ -84,6 +87,9 @@ public class CreditoolsPaymentController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Response payOngWithDebit(@RequestBody DebitCardPayment payment) {
+        if (payment.getIdDweller() <= 0)
+            return Response.status(404).build();
+
         boolean response = creditoolsPaymentService.buyWithDebitCard(
                 payment.getIdDweller(),
                 payment.getCard(),
@@ -115,8 +121,11 @@ public class CreditoolsPaymentController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Response payOngWithMoney(@RequestBody MoneyPayment payment) {
+        if (payment.getIdDweller() <= 0)
+            return Response.status(404).build();
+
         boolean response = creditoolsPaymentService.buyWithMoney(
-                payment.getId_dweller(),
+                payment.getIdDweller(),
                 payment.getValue()
         );
 

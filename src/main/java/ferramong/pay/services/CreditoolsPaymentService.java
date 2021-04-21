@@ -51,18 +51,6 @@ public class CreditoolsPaymentService {
         return doPayment(idDweller, PaymentMethod.MONEY, value);
     }
 
-    public boolean payWithCreditools(int idDweller, double value) {
-        Creditools wallet = Creditools.of(idDweller);
-
-        if (wallet.getBalance() < value)
-            return false;
-
-        if (!wallet.debit(value))
-            return false;
-
-        return doPayment(idDweller, PaymentMethod.CREDITOOLS, value);
-    }
-
     public List<Payment> getAllDwellerPurchases(int idDweller) {
         return generatePaymentListOf(repository.getAllDwellerPurchases(idDweller));
     }
