@@ -9,25 +9,36 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 @NoArgsConstructor
 @Getter
 @Setter
-public class Payment implements Serializable {
+public class ToolsPayment implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private int id;
+
+    @Column(nullable = false)
     private int id_dweller;
+
+    @Column(nullable = false)
     private Date date;
+
+    @Column(nullable = false)
     private double total;
+
+    @Column(nullable = false)
     private String type;    // credit, debit, money, creditools
 
-    public Payment(int id, int idDweller, String type, double value, Date date) {
+    public ToolsPayment(int idDweller, PaymentMethod type, double value) {
         id_dweller = idDweller;
-        this.date = date;
+        date = new Date();
         total = value;
-        this.type = type;
+        this.type = type.name();
     }
 
-    public Payment(int id, int idDweller, PaymentMethod type, double value, Date date) {
-        this(id, idDweller, type.name(), value, date);
+    public Payment getPayment() {
+        return new Payment(id, id_dweller, type, total, date);
     }
 }

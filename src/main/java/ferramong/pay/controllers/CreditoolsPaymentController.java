@@ -2,10 +2,9 @@ package ferramong.pay.controllers;
 
 import ferramong.pay.entities.Payment;
 import ferramong.pay.models.payment.CreditCardPayment;
-import ferramong.pay.models.payment.CreditoolsPayment;
 import ferramong.pay.models.payment.DebitCardPayment;
 import ferramong.pay.models.payment.MoneyPayment;
-import ferramong.pay.services.PaymentService;
+import ferramong.pay.services.CreditoolsPaymentService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -23,16 +22,16 @@ import java.util.List;
         origins = CorsConfiguration.ALL,
         methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}
 )
-public class PayController {
+public class CreditoolsPaymentController {
 
-    private final PaymentService paymentService;
+    private final CreditoolsPaymentService creditoolsPaymentService;
 
     /**
-     * Pays the ONG using credit card.
+     * Buys creditools using credit card.
      *
      * <h2>CURL example</h2>
      * <code>
-     *     curl "https://ferramong-pay.herokuapp.com/pay/credit" \
+     *     curl "https://ferramong-pay.herokuapp.com/buy/creditools/credit" \
      *     -X POST \
      *     -d "{\n  \"id_dweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
@@ -44,9 +43,9 @@ public class PayController {
      * @return      200 if ok; 404 if there is no dweller with the provided id;
      * 400 if another error occurs
      */
-    @PostMapping("/pay/credit")
+    @PostMapping("/buy/creditools/credit")
     public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
-        boolean response = paymentService.payWithCreditCard(
+        boolean response = creditoolsPaymentService.buyWithCreditCard(
                 payment.getIdDweller(),
                 payment.getCard(),
                 payment.getValue()
@@ -63,11 +62,11 @@ public class PayController {
     }
 
     /**
-     * Pays the ONG using debit card.
+     * Buys creditools using debit card.
      *
      * <h2>CURL example</h2>
      * <code>
-     *     curl "https://ferramong-pay.herokuapp.com/pay/debit" \
+     *     curl "https://ferramong-pay.herokuapp.com/buy/creditools/debit" \
      *     -X POST \
      *     -d "{\n  \"id_dweller\": \"1\",\n  \"cardNumber\": \"1234 1234 1234 1234\", \n  \"cardCvv\":\"123\", \n  \"cardOwner\":\"FULANO DA SILVA\",\n  \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
@@ -80,12 +79,12 @@ public class PayController {
      * 400 if another error occurs
      */
     @PostMapping(
-            path = "/pay/debit",
+            path = "/buy/creditools/debit",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Response payOngWithDebit(@RequestBody DebitCardPayment payment) {
-        boolean response = paymentService.payWithDebitCard(
+        boolean response = creditoolsPaymentService.buyWithDebitCard(
                 payment.getIdDweller(),
                 payment.getCard(),
                 payment.getValue()
@@ -95,11 +94,11 @@ public class PayController {
     }
 
     /**
-     * Pays the ONG using money.
+     * Buys creditools using money.
      *
      * <h2>CURL example</h2>
      * <code>
-     *     curl "https://ferramong-pay.herokuapp.com/pay/money" \
+     *     curl "https://ferramong-pay.herokuapp.com/buy/creditools/money" \
      *     -X POST \
      *     -d "{\n  \"id_dweller\": \"1\",\n \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
@@ -111,12 +110,12 @@ public class PayController {
      * 400 if another error occurs
      */
     @PostMapping(
-            path = "/pay/money",
+            path = "/buy/creditools/money",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Response payOngWithMoney(@RequestBody MoneyPayment payment) {
-        boolean response = paymentService.payWithMoney(
+        boolean response = creditoolsPaymentService.buyWithMoney(
                 payment.getId_dweller(),
                 payment.getValue()
         );
@@ -125,41 +124,11 @@ public class PayController {
     }
 
     /**
-     * Pays the ONG using creditools.
+     * Gets ONG creditools purchases within a date range.
      *
      * <h2>CURL example</h2>
      * <code>
-     *     curl "https://ferramong-pay.herokuapp.com/pay/creditools" \
-     *     -X POST \
-     *     -d "{\n  \"id_dweller\": \"1\",\n \"value\": \"123.34\"\n}" \
-     *     -H "Content-type: application/json"
-     * </code>
-     *
-     * @param       payment Dweller id and value to be paid
-     *
-     * @return      200 if ok; 404 if there is no dweller with the provided id;
-     * 400 if another error occurs
-     */
-    @PostMapping(
-            path = "/pay/creditools",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Response payOngWithCreditools(@RequestBody CreditoolsPayment payment) {
-        boolean response = paymentService.payWithCreditools(
-                payment.getId_dweller(),
-                payment.getValue()
-        );
-
-        return parseResponse(response);
-    }
-
-    /**
-     * Gets ONG purchases within a date range.
-     *
-     * <h2>CURL example</h2>
-     * <code>
-     *      curl "https://ferramong-pay.herokuapp.com/purchases/ong/2021-03-27/2021-03-28"
+     *      curl "https://ferramong-pay.herokuapp.com/purchases/creditools/ong/2021-03-27/2021-03-28"
      * </code>
      *
      * @param       start Start range
@@ -167,28 +136,28 @@ public class PayController {
      *
      * @return      Purchases in the interval [start; end]
      */
-    @GetMapping("/purchases/ong/{start}/{end}")
-    public ResponseEntity<List<Payment>> getAllOngPurchases(@PathVariable("start")
-                                                            @DateTimeFormat(pattern="yyyy-MM-dd") Date start,
-                                                            @PathVariable("end")
-                                                            @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
-        return ResponseEntity.ok().body(paymentService.getAllOngPurchases(start, end));
+    @GetMapping("/purchases/creditools/ong/{start}/{end}")
+    public ResponseEntity<List<Payment>> getAllOngCreditoolsPurchases(@PathVariable("start")
+                                                                      @DateTimeFormat(pattern="yyyy-MM-dd") Date start,
+                                                                      @PathVariable("end")
+                                                                      @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
+        return ResponseEntity.ok().body(creditoolsPaymentService.getAllOngPurchases(start, end));
     }
 
     /**
-     * Gets dweller purchases.
+     * Gets dweller creditools purchases.
      *
      * <h2>CURL example</h2>
      * <code>
-     *      curl "https://ferramong-pay.herokuapp.com/purchases/dweller/1"
+     *      curl "https://ferramong-pay.herokuapp.com/purchases/creditools/dweller/1"
      * </code>
      *
      * @param       idDweller Dweller id
      *
      * @return      Dweller purchases
      */
-    @GetMapping("/purchases/dweller/{id_dweller}")
-    public ResponseEntity<List<Payment>> getAllDwellerPurchases(@PathVariable("id_dweller") int idDweller) {
-        return ResponseEntity.ok().body(paymentService.getAllDwellerPurchases(idDweller));
+    @GetMapping("/purchases/creditools/dweller/{id_dweller}")
+    public ResponseEntity<List<Payment>> getAllDwellerCreditoolsPurchases(@PathVariable("id_dweller") int idDweller) {
+        return ResponseEntity.ok().body(creditoolsPaymentService.getAllDwellerPurchases(idDweller));
     }
 }

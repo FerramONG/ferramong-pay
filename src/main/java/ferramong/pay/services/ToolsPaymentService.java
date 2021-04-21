@@ -1,21 +1,24 @@
 package ferramong.pay.services;
 
-import ferramong.pay.entities.Payment;
 import ferramong.pay.entities.Creditools;
-import ferramong.pay.models.payment.PaymentMethod;
+import ferramong.pay.entities.CreditoolsPayment;
+import ferramong.pay.entities.Payment;
+import ferramong.pay.entities.ToolsPayment;
 import ferramong.pay.models.card.Card;
-import ferramong.pay.repositories.PaymentRepository;
+import ferramong.pay.models.payment.PaymentMethod;
+import ferramong.pay.repositories.ToolsPaymentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class PaymentService {
+public class ToolsPaymentService {
 
-    private final PaymentRepository repository;
+    private final ToolsPaymentRepository repository;
 
     public boolean payWithCreditCard(int idDweller, Card card, double value) {
         return payWithCard(idDweller, PaymentMethod.CREDIT_CARD, card, value);
@@ -30,7 +33,7 @@ public class PaymentService {
 
     private boolean doPayment(int idDweller, PaymentMethod method, double value) {
         try {
-            Payment payment = new Payment(idDweller, method, value);
+            ToolsPayment payment = new ToolsPayment(idDweller, method, value);
 
             repository.save(payment);
 
@@ -62,10 +65,20 @@ public class PaymentService {
     }
 
     public List<Payment> getAllDwellerPurchases(int idDweller) {
-        return repository.getAllDwellerPurchases(idDweller);
+        return generatePaymentListOf(repository.getAllDwellerPurchases(idDweller));
     }
 
     public List<Payment> getAllOngPurchases(Date start, Date end) {
-        return repository.getAllOngPurchases(start, end);
+        return generatePaymentListOf(repository.getAllOngPurchases(start, end));
+    }
+
+    private List<Payment> generatePaymentListOf(List<ToolsPayment> payments) {
+        List<Payment> purchases = new ArrayList<>();
+
+        for (ToolsPayment purchase : payments) {
+            purchases.add(purchase.getPayment());
+        }
+
+        return purchases;
     }
 }
