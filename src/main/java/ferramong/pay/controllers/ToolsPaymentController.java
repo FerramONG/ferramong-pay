@@ -42,7 +42,7 @@ public class ToolsPaymentController {
      * information
      *
      * @return      200 if ok; 404 if there is no dweller with the provided id;
-     * 400 if another error occurs
+     * 407 if dweller does not have enough money; 400 if another error occurs
      */
     @PostMapping("/pay/credit")
     public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
@@ -60,7 +60,7 @@ public class ToolsPaymentController {
 
     private Response parseResponse(boolean response) {
         if (!response)
-            return Response.notModified().build();
+            return Response.status(407).build();
 
         return Response.accepted().build();
     }
@@ -80,7 +80,7 @@ public class ToolsPaymentController {
      * information
      *
      * @return      200 if ok; 404 if there is no dweller with the provided id;
-     * 400 if another error occurs
+     * 407 if dweller does not have enough money; 400 if another error occurs
      */
     @PostMapping(
             path = "/pay/debit",
@@ -114,7 +114,7 @@ public class ToolsPaymentController {
      * @param       payment Dweller id and value to be paid
      *
      * @return      200 if ok; 404 if there is no dweller with the provided id;
-     * 400 if another error occurs
+     * 407 if dweller does not have enough money; 400 if another error occurs
      */
     @PostMapping(
             path = "/pay/money",
@@ -147,7 +147,7 @@ public class ToolsPaymentController {
      * @param       payment Dweller id and value to be paid
      *
      * @return      200 if ok; 404 if there is no dweller with the provided id;
-     * 400 if another error occurs
+     * 407 if dweller does not have enough money; 400 if another error occurs
      */
     @PostMapping(
             path = "/pay/creditools",
