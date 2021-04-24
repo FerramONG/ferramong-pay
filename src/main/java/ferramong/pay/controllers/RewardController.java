@@ -1,6 +1,6 @@
 package ferramong.pay.controllers;
 
-import ferramong.pay.entities.CreditoolsPayment;
+import ferramong.pay.models.payment.CreditoolsPayment;
 import ferramong.pay.entities.Reward;
 import ferramong.pay.services.RewardService;
 import lombok.AllArgsConstructor;
