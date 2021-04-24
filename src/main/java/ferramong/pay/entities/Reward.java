@@ -26,4 +26,10 @@ public class Reward implements Serializable {
 
     @Column(nullable = false)
     private double value; // creditools
+
+    public Reward(int idDweller, double value) {
+        id_dweller = idDweller;
+        this.value = value;
+        date = new Date();
+    }
 }

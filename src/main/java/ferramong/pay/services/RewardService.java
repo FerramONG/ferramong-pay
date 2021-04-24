@@ -1,5 +1,6 @@
 package ferramong.pay.services;
 
+import ferramong.pay.models.payment.CreditoolsPayment;
 import ferramong.pay.entities.Reward;
 import ferramong.pay.entities.Creditools;
 import ferramong.pay.repositories.RewardRepository;
@@ -15,9 +16,9 @@ public class RewardService {
 
     private final RewardRepository repository;
 
-    public boolean rewardDweller(Reward reward) {
+    public boolean rewardDweller(CreditoolsPayment reward) {
 
-        Creditools wallet = Creditools.of(reward.getId_dweller());
+        Creditools wallet = Creditools.of(reward.getIdDweller());
 
         if (!wallet.creditUsingCreditools(reward.getValue()))
             return false;
@@ -25,9 +26,9 @@ public class RewardService {
         return doReward(reward);
     }
 
-    private boolean doReward(Reward reward) {
+    private boolean doReward(CreditoolsPayment reward) {
         try {
-            repository.save(reward);
+            repository.save(new Reward(reward.getIdDweller(), reward.getValue()));
 
             return true;
         }

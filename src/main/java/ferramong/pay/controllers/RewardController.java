@@ -1,5 +1,6 @@
 package ferramong.pay.controllers;
 
+import ferramong.pay.entities.CreditoolsPayment;
 import ferramong.pay.entities.Reward;
 import ferramong.pay.services.RewardService;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,7 @@ public class RewardController {
      * <code>
      *     curl "https://ferramong-pay.herokuapp.com/reward" \
      *     -X POST \
-     *     -d "{\n  \"id_dweller\": \"1\",\n \"value\": \"123.34\"\n}" \
+     *     -d "{\n  \"idDweller\": \"1\",\n \"value\": \"123.34\"\n}" \
      *     -H "Content-type: application/json"
      * </code>
      *
@@ -44,7 +45,7 @@ public class RewardController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Response reward(@RequestBody Reward reward) {
+    public Response reward(@RequestBody CreditoolsPayment reward) {
         boolean response = rewardService.rewardDweller(reward);
 
         return parseResponse(response);
