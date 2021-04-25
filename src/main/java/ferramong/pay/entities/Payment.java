@@ -21,13 +21,10 @@ public class Payment implements Serializable {
     private String type;    // credit, debit, money, creditools
 
     public Payment(int id, int idDweller, String type, double value, Date date) {
+        this.id = id;
         id_dweller = idDweller;
         this.date = date;
         total = value;
         this.type = type;
-    }
-
-    public Payment(int id, int idDweller, PaymentMethod type, double value, Date date) {
-        this(id, idDweller, type.name(), value, date);
     }
 }

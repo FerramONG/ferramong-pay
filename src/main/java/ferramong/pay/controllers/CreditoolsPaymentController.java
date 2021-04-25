@@ -59,7 +59,7 @@ public class CreditoolsPaymentController {
 
     private Response parseResponse(boolean response) {
         if (!response)
-            return Response.notModified().build();
+            return Response.status(407).build();
 
         return Response.accepted().build();
     }

@@ -53,7 +53,7 @@ public class RewardController {
 
     private Response parseResponse(boolean response) {
         if (!response)
-            return Response.notModified().build();
+            return Response.status(400).build();
 
         return Response.accepted().build();
     }
