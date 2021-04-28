@@ -19,6 +19,7 @@ import java.util.List;
 public class ToolsPaymentService {
 
     private final ToolsPaymentRepository repository;
+    private final WalletService walletService;
 
     public boolean payWithCreditCard(int idDweller, Card card, double value) {
         return payWithCard(idDweller, PaymentMethod.CREDIT_CARD, card, value);
@@ -32,6 +33,9 @@ public class ToolsPaymentService {
     }
 
     private boolean doPayment(int idDweller, PaymentMethod method, double value) {
+        if (!walletService.hasWallet(idDweller))
+            walletService.newWallet(idDweller);
+
         try {
             ToolsPayment payment = new ToolsPayment(idDweller, method, value);
 
@@ -53,12 +57,13 @@ public class ToolsPaymentService {
     }
 
     public boolean payWithCreditools(int idDweller, double value) {
-        Creditools wallet = Creditools.of(idDweller);
+        if (!walletService.hasWallet(idDweller))
+            walletService.newWallet(idDweller);
 
-        if (wallet.getBalance() < value)
+        if (walletService.getBalance(idDweller) < value)
             return false;
 
-        if (!wallet.debit(value))
+        if (!walletService.debit(idDweller, value))
             return false;
 
         return doPayment(idDweller, PaymentMethod.CREDITOOLS, value);

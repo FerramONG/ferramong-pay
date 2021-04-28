@@ -26,7 +26,6 @@ import java.util.List;
 public class CreditoolsPaymentController {
 
     private final CreditoolsPaymentService creditoolsPaymentService;
-    private final WalletService creditoolsService;
 
     /**
      * Buys creditools using credit card.
@@ -48,7 +47,7 @@ public class CreditoolsPaymentController {
     @PostMapping("/buy/creditools/credit")
     public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
         if (payment.getIdDweller() <= 0)
-            creditoolsService.newWallet(payment.getIdDweller());
+            return Response.status(404).build();
 
         boolean response = creditoolsPaymentService.buyWithCreditCard(
                 payment.getIdDweller(),
@@ -90,7 +89,7 @@ public class CreditoolsPaymentController {
     )
     public Response payOngWithDebit(@RequestBody DebitCardPayment payment) {
         if (payment.getIdDweller() <= 0)
-            creditoolsService.newWallet(payment.getIdDweller());
+            return Response.status(404).build();
 
         boolean response = creditoolsPaymentService.buyWithDebitCard(
                 payment.getIdDweller(),
@@ -124,7 +123,7 @@ public class CreditoolsPaymentController {
     )
     public Response payOngWithMoney(@RequestBody MoneyPayment payment) {
         if (payment.getIdDweller() <= 0)
-            creditoolsService.newWallet(payment.getIdDweller());
+            return Response.status(404).build();
 
         boolean response = creditoolsPaymentService.buyWithMoney(
                 payment.getIdDweller(),

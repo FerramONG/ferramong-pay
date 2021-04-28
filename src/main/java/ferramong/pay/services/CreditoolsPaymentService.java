@@ -18,6 +18,7 @@ import java.util.List;
 public class CreditoolsPaymentService {
 
     private final CreditoolsPaymentRepository repository;
+    private final WalletService walletService;
 
     public boolean buyWithCreditCard(int idDweller, Card card, double value) {
         return payWithCard(idDweller, PaymentMethod.CREDIT_CARD, card, value);
@@ -31,6 +32,9 @@ public class CreditoolsPaymentService {
     }
 
     private boolean doPayment(int idDweller, PaymentMethod method, double value) {
+        if (!walletService.hasWallet(idDweller))
+            walletService.newWallet(idDweller);
+
         try {
             CreditoolsPayment payment = new CreditoolsPayment(idDweller, method, value);
 

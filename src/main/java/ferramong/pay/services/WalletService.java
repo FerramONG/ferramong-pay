@@ -13,4 +13,29 @@ public class WalletService {
 
         c.newWallet(idDweller);
     }
+
+    public boolean hasWallet(int idDweller) {
+        Creditools wallet = Creditools.of(idDweller);
+
+        try {
+            wallet.getBalance();
+        }
+        catch (Throwable e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public double getBalance(int idDweller) {
+        Creditools wallet = Creditools.of(idDweller);
+
+        return wallet.getBalance();
+    }
+
+    public boolean debit(int idDweller, double value) {
+        Creditools wallet = Creditools.of(idDweller);
+
+        return wallet.debit(value);
+    }
 }

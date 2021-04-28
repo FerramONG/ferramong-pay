@@ -28,7 +28,6 @@ import java.util.List;
 public class ToolsPaymentController {
 
     private final ToolsPaymentService toolsPaymentService;
-    private final WalletService creditoolsService;
 
     /**
      * Pays the ONG using credit card.
@@ -50,7 +49,7 @@ public class ToolsPaymentController {
     @PostMapping("/pay/credit")
     public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
         if (payment.getIdDweller() <= 0)
-            creditoolsService.newWallet(payment.getIdDweller());
+            return Response.status(404).build();
 
         boolean response = toolsPaymentService.payWithCreditCard(
                 payment.getIdDweller(),
@@ -92,7 +91,7 @@ public class ToolsPaymentController {
     )
     public Response payOngWithDebit(@RequestBody DebitCardPayment payment) {
         if (payment.getIdDweller() <= 0)
-            creditoolsService.newWallet(payment.getIdDweller());
+            return Response.status(404).build();
 
         boolean response = toolsPaymentService.payWithDebitCard(
                 payment.getIdDweller(),
@@ -126,7 +125,7 @@ public class ToolsPaymentController {
     )
     public Response payOngWithMoney(@RequestBody MoneyPayment payment) {
         if (payment.getIdDweller() <= 0)
-            creditoolsService.newWallet(payment.getIdDweller());
+            return Response.status(404).build();
 
         boolean response = toolsPaymentService.payWithMoney(
                 payment.getIdDweller(),
@@ -159,7 +158,7 @@ public class ToolsPaymentController {
     )
     public Response payOngWithCreditools(@RequestBody @Valid CreditoolsPayment payment) {
         if (payment.getIdDweller() <= 0)
-            creditoolsService.newWallet(payment.getIdDweller());
+            return Response.status(404).build();
 
         boolean response = toolsPaymentService.payWithCreditools(
                 payment.getIdDweller(),
