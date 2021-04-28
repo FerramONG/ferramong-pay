@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.cors.CorsConfiguration;
 
+import javax.validation.Valid;
 import javax.ws.rs.core.Response;
 import java.util.Date;
 import java.util.List;
@@ -156,7 +157,7 @@ public class ToolsPaymentController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Response payOngWithCreditools(@RequestBody CreditoolsPayment payment) {
+    public Response payOngWithCreditools(@RequestBody @Valid CreditoolsPayment payment) {
         if (payment.getIdDweller() <= 0)
             creditoolsService.newWallet(payment.getIdDweller());
 
