@@ -110,7 +110,7 @@ public class Creditools {
         sb.append("\"idDweller\":");
         sb.append(" ");
         sb.append("\"" + idDweller + "\"");
-        sb.append(",\n");
+        sb.append("\n");
         sb.append("}");
         String body = sb.toString();
 
