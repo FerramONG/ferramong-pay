@@ -98,4 +98,32 @@ public class Creditools {
 
         return Double.parseDouble(responseEntity.getBody());
     }
+
+    public boolean newWallet(int idDweller) {
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+        sb.append("  ");
+        sb.append("\"idDweller\":");
+        sb.append(" ");
+        sb.append("\"" + idDweller + "\"");
+        sb.append(",\n");
+        sb.append("}");
+        String body = sb.toString();
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = rest.exchange(
+                "https://ferramong-creditools.herokuapp.com/wallet",
+                HttpMethod.POST,
+                requestEntity,
+                String.class
+        );
+        HttpStatus httpStatus = responseEntity.getStatusCode();
+        int status = httpStatus.value();
+
+        return (status == 200);
+    }
 }

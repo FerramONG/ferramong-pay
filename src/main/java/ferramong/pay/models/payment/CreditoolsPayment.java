@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @AllArgsConstructor
@@ -13,6 +14,6 @@ import java.io.Serializable;
 @Setter
 public class CreditoolsPayment implements Serializable {
 
-    private int idDweller;
+    private @NotNull int idDweller;
     private double value;
 }

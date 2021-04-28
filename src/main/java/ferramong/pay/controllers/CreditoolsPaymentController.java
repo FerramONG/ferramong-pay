@@ -5,6 +5,7 @@ import ferramong.pay.models.payment.CreditCardPayment;
 import ferramong.pay.models.payment.DebitCardPayment;
 import ferramong.pay.models.payment.MoneyPayment;
 import ferramong.pay.services.CreditoolsPaymentService;
+import ferramong.pay.services.WalletService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import java.util.List;
 public class CreditoolsPaymentController {
 
     private final CreditoolsPaymentService creditoolsPaymentService;
+    private final WalletService creditoolsService;
 
     /**
      * Buys creditools using credit card.
@@ -46,7 +48,7 @@ public class CreditoolsPaymentController {
     @PostMapping("/buy/creditools/credit")
     public Response payOngWithCredit(@RequestBody CreditCardPayment payment) {
         if (payment.getIdDweller() <= 0)
-            return Response.status(404).build();
+            creditoolsService.newWallet(payment.getIdDweller());
 
         boolean response = creditoolsPaymentService.buyWithCreditCard(
                 payment.getIdDweller(),
@@ -88,7 +90,7 @@ public class CreditoolsPaymentController {
     )
     public Response payOngWithDebit(@RequestBody DebitCardPayment payment) {
         if (payment.getIdDweller() <= 0)
-            return Response.status(404).build();
+            creditoolsService.newWallet(payment.getIdDweller());
 
         boolean response = creditoolsPaymentService.buyWithDebitCard(
                 payment.getIdDweller(),
@@ -122,7 +124,7 @@ public class CreditoolsPaymentController {
     )
     public Response payOngWithMoney(@RequestBody MoneyPayment payment) {
         if (payment.getIdDweller() <= 0)
-            return Response.status(404).build();
+            creditoolsService.newWallet(payment.getIdDweller());
 
         boolean response = creditoolsPaymentService.buyWithMoney(
                 payment.getIdDweller(),
