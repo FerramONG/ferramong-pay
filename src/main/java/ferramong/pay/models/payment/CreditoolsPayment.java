@@ -14,6 +14,6 @@ import java.io.Serializable;
 @Setter
 public class CreditoolsPayment implements Serializable {
 
-    @NotNull private int idDweller;
-    @NotNull private double value;
+    @NotNull private Integer idDweller;
+    @NotNull private Double value;
 }
