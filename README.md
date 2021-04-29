@@ -1,5 +1,5 @@
 <p align='center'>
-<img src='https://raw.githubusercontent.com/FerramONG/ferramong-pay/master/docs/img/logo/logo.png?raw=true' />
+<img width="250px" src='https://raw.githubusercontent.com/FerramONG/ferramong-pay/master/docs/img/logo/logo.png?raw=true' />
 </p>
 
 <h1 align='center'>FerramONG - Pay</h1>
